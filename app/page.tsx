@@ -16,24 +16,27 @@ interface Chef {
   id: number
   avatar: string
   name: string
-  followerCount: number
+  followers: number
 }
 
-export default function Home(): JSX.Element {
+export default function Home() {
   const featuredRecipes: Recipe[] = [
-    { id: 1, image: '/images/recipe1.jpg', title: 'Spaghetti Bolognese', author: 'Chef Anna', rating: 4.5 },
-    { id: 2, image: '/images/recipe2.jpg', title: 'Classic Cheesecake', author: 'Chef Ben', rating: 4.8 },
-    { id: 3, image: '/images/recipe3.jpg', title: 'Grilled Salmon', author: 'Chef Clara', rating: 4.7 },
-    { id: 4, image: '/images/recipe4.jpg', title: 'Vegan Buddha Bowl', author: 'Chef Daniel', rating: 4.6 },
+    { id: 1, image: '/images/recipe1.jpg', title: 'Spicy Ramen', author: 'Chef Aiko', rating: 4.8 },
+    { id: 2, image: '/images/recipe2.jpg', title: 'Avocado Toast', author: 'Chef Marco', rating: 4.5 },
+    { id: 3, image: '/images/recipe3.jpg', title: 'Chocolate Cake', author: 'Chef Lina', rating: 4.9 },
+    { id: 4, image: '/images/recipe4.jpg', title: 'Quinoa Salad', author: 'Chef Raj', rating: 4.6 },
+    { id: 5, image: '/images/recipe5.jpg', title: 'Pancakes', author: 'Chef Emma', rating: 4.7 },
   ]
 
   const trendingChefs: Chef[] = [
-    { id: 1, avatar: '/avatars/chef1.jpg', name: 'Chef Anna', followerCount: 1200 },
-    { id: 2, avatar: '/avatars/chef2.jpg', name: 'Chef Ben', followerCount: 1100 },
-    { id: 3, avatar: '/avatars/chef3.jpg', name: 'Chef Clara', followerCount: 1500 },
-    { id: 4, avatar: '/avatars/chef4.jpg', name: 'Chef Daniel', followerCount: 900 },
-    { id: 5, avatar: '/avatars/chef5.jpg', name: 'Chef Eva', followerCount: 1300 },
-    { id: 6, avatar: '/avatars/chef6.jpg', name: 'Chef Frank', followerCount: 800 },
+    { id: 1, avatar: '/avatars/chef1.jpg', name: 'Chef Aiko', followers: 12400 },
+    { id: 2, avatar: '/avatars/chef2.jpg', name: 'Chef Marco', followers: 9800 },
+    { id: 3, avatar: '/avatars/chef3.jpg', name: 'Chef Lina', followers: 11200 },
+    { id: 4, avatar: '/avatars/chef4.jpg', name: 'Chef Raj', followers: 8700 },
+    { id: 5, avatar: '/avatars/chef5.jpg', name: 'Chef Emma', followers: 10200 },
+    { id: 6, avatar: '/avatars/chef6.jpg', name: 'Chef Oliver', followers: 9400 },
+    { id: 7, avatar: '/avatars/chef7.jpg', name: 'Chef Sofia', followers: 11500 },
+    { id: 8, avatar: '/avatars/chef8.jpg', name: 'Chef Lucas', followers: 8900 },
   ]
 
   return (
@@ -62,7 +65,7 @@ export default function Home(): JSX.Element {
                 key={chef.id}
                 avatar={chef.avatar}
                 name={chef.name}
-                followerCount={chef.followerCount}
+                followers={chef.followers}
               />
             ))}
           </div>
