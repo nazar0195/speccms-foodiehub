@@ -1,69 +1,41 @@
-import { NextPage } from 'next'
-import { useRouter } from 'next/router'
-import NavBar from '@/components/NavBar'
-import CollectionCard from '@/components/CollectionCard'
-import Footer from '@/components/Footer'
+import React from 'react'
+import NavBar from "@/components/NavBar"
+import CollectionCard from "@/components/CollectionCard"
+import Footer from "@/components/Footer"
 
 interface Collection {
-  id: string
+  id: number
   name: string
   coverImage: string
   recipeCount: number
 }
 
-const collections: Collection[] = [
-  {
-    id: '1',
-    name: 'Desserts',
-    coverImage: '/images/collections/desserts.jpg',
-    recipeCount: 12,
-  },
-  {
-    id: '2',
-    name: 'Healthy Choices',
-    coverImage: '/images/collections/healthy.jpg',
-    recipeCount: 8,
-  },
-  {
-    id: '3',
-    name: 'Quick Meals',
-    coverImage: '/images/collections/quick.jpg',
-    recipeCount: 15,
-  },
-]
-
 export default function MyCollections(): JSX.Element {
-  const router = useRouter()
-
-  const handleViewCollection = (id: string) => {
-    router.push(`/collections/${id}`)
-  }
-
-  const handleAddNewCollection = () => {
-    router.push('/create-collection')
-  }
+  const collections: Collection[] = [
+    { id: 1, name: "Breakfast Favorites", coverImage: "/images/breakfast.jpg", recipeCount: 12 },
+    { id: 2, name: "Healthy Dinners", coverImage: "/images/dinner.jpg", recipeCount: 8 },
+    { id: 3, name: "Dessert Delights", coverImage: "/images/dessert.jpg", recipeCount: 15 },
+    { id: 4, name: "Vegan Specials", coverImage: "/images/vegan.jpg", recipeCount: 10 },
+  ]
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <NavBar />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">My Collections</h1>
+        <h1 className="text-3xl font-semibold mb-6">My Collections</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {collections.map((collection) => (
+          <div className="flex flex-col justify-center items-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:border-gray-400 p-6">
+            <span className="text-4xl font-bold text-gray-400 mb-2">+</span>
+            <span className="text-gray-600 font-medium">Add New Collection</span>
+          </div>
+          {collections.map(({ id, name, coverImage, recipeCount }) => (
             <CollectionCard
-              key={collection.id}
-              coverImage={collection.coverImage}
-              name={collection.name}
-              recipeCount={collection.recipeCount}
-              onView={() => handleViewCollection(collection.id)}
+              key={id}
+              coverImage={coverImage}
+              name={name}
+              recipeCount={recipeCount}
             />
           ))}
-          <div
-            onClick={handleAddNewCollection}
-            className="flex items-center justify-center border-2 border-dashed border-gray-300 rounded-lg cursor-pointer hover:bg-gray-100 transition"
-          >
-            <span className="text-xl font-medium text-gray-600">+ Add New Collection</span>
-          </div>
         </div>
       </main>
       <Footer />
