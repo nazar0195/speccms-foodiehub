@@ -1,71 +1,71 @@
 import React from 'react'
 import NavBar from '@/components/NavBar'
+import Footer from '@/components/Footer'
 import RecipeCard from '@/components/RecipeCard'
 import UserProfileCard from '@/components/UserProfileCard'
-import Footer from '@/components/Footer'
 
-interface Recipe {
+type Recipe = {
   id: number
-  image: string
   title: string
   author: string
+  image: string
   rating: number
 }
 
-interface Chef {
+type Chef = {
   id: number
-  avatar: string
   name: string
+  avatar: string
   followers: number
 }
 
-export default function Home() {
+export default function Home(): JSX.Element {
   const featuredRecipes: Recipe[] = [
-    { id: 1, image: '/images/recipe1.jpg', title: 'Spicy Ramen', author: 'Chef Aiko', rating: 4.8 },
-    { id: 2, image: '/images/recipe2.jpg', title: 'Avocado Toast', author: 'Chef Marco', rating: 4.5 },
-    { id: 3, image: '/images/recipe3.jpg', title: 'Chocolate Cake', author: 'Chef Lina', rating: 4.9 },
-    { id: 4, image: '/images/recipe4.jpg', title: 'Quinoa Salad', author: 'Chef Raj', rating: 4.6 },
-    { id: 5, image: '/images/recipe5.jpg', title: 'Pancakes', author: 'Chef Emma', rating: 4.7 },
+    { id: 1, title: 'Avocado Toast', author: 'Jane Doe', image: '/images/avocado-toast.jpg', rating: 4.5 },
+    { id: 2, title: 'Spicy Ramen', author: 'John Smith', image: '/images/spicy-ramen.jpg', rating: 4.8 },
+    { id: 3, title: 'Vegan Tacos', author: 'Alice Johnson', image: '/images/vegan-tacos.jpg', rating: 4.7 },
+    { id: 4, title: 'Chocolate Cake', author: 'Bob Brown', image: '/images/chocolate-cake.jpg', rating: 4.9 },
   ]
 
   const trendingChefs: Chef[] = [
-    { id: 1, avatar: '/avatars/chef1.jpg', name: 'Chef Aiko', followers: 12400 },
-    { id: 2, avatar: '/avatars/chef2.jpg', name: 'Chef Marco', followers: 9800 },
-    { id: 3, avatar: '/avatars/chef3.jpg', name: 'Chef Lina', followers: 11200 },
-    { id: 4, avatar: '/avatars/chef4.jpg', name: 'Chef Raj', followers: 8700 },
-    { id: 5, avatar: '/avatars/chef5.jpg', name: 'Chef Emma', followers: 10200 },
-    { id: 6, avatar: '/avatars/chef6.jpg', name: 'Chef Oliver', followers: 9400 },
-    { id: 7, avatar: '/avatars/chef7.jpg', name: 'Chef Sofia', followers: 11500 },
-    { id: 8, avatar: '/avatars/chef8.jpg', name: 'Chef Lucas', followers: 8900 },
+    { id: 1, name: 'Chef Emma', avatar: '/avatars/emma.jpg', followers: 12000 },
+    { id: 2, name: 'Chef Liam', avatar: '/avatars/liam.jpg', followers: 9800 },
+    { id: 3, name: 'Chef Olivia', avatar: '/avatars/olivia.jpg', followers: 15000 },
+    { id: 4, name: 'Chef Noah', avatar: '/avatars/noah.jpg', followers: 11000 },
+    { id: 5, name: 'Chef Ava', avatar: '/avatars/ava.jpg', followers: 13000 },
+    { id: 6, name: 'Chef Mason', avatar: '/avatars/mason.jpg', followers: 9000 },
   ]
 
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
       <main className="flex-grow container mx-auto px-4 py-8">
-        <section>
-          <h2 className="text-2xl font-semibold mb-4">Featured Recipes</h2>
+        <section aria-labelledby="featured-recipes" className="mb-12">
+          <h2 id="featured-recipes" className="text-2xl font-semibold mb-4">Featured Recipes</h2>
           <div className="flex space-x-4 overflow-x-auto pb-4">
-            {featuredRecipes.map((recipe) => (
-              <RecipeCard
-                key={recipe.id}
-                image={recipe.image}
-                title={recipe.title}
-                author={recipe.author}
-                rating={recipe.rating}
-              />
+            {featuredRecipes.map(recipe => (
+              <div key={recipe.id} className="min-w-[250px]">
+                <RecipeCard
+                  image={recipe.image}
+                  title={recipe.title}
+                  author={recipe.author}
+                  rating={recipe.rating}
+                  onAction={() => {}}
+                />
+              </div>
             ))}
           </div>
         </section>
-        <section className="mt-12">
-          <h2 className="text-2xl font-semibold mb-4">Trending Chefs</h2>
+        <section aria-labelledby="trending-chefs" className="mb-12">
+          <h2 id="trending-chefs" className="text-2xl font-semibold mb-4">Trending Chefs</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {trendingChefs.map((chef) => (
+            {trendingChefs.map(chef => (
               <UserProfileCard
                 key={chef.id}
                 avatar={chef.avatar}
                 name={chef.name}
                 followers={chef.followers}
+                onFollow={() => {}}
               />
             ))}
           </div>
