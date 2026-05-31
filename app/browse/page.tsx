@@ -1,57 +1,55 @@
-import React, { useState } from 'react'
-import NavBar from '@/components/NavBar'
-import FilterSidebar from '@/components/FilterSidebar'
-import RecipeCard from '@/components/RecipeCard'
-import PaginationControls from '@/components/PaginationControls'
-import Footer from '@/components/Footer'
+import React, { useState, useEffect } from "react"
+import NavBar from "@/components/NavBar"
+import FilterSidebar from "@/components/FilterSidebar"
+import RecipeCard from "@/components/RecipeCard"
+import PaginationControls from "@/components/PaginationControls"
+import Footer from "@/components/Footer"
 
-type Recipe = {
-  id: number
-  image: string
+interface Recipe {
+  id: string
   title: string
   author: string
   rating: number
+  image: string
 }
 
-const allRecipes: Recipe[] = Array.from({ length: 50 }, (_, i) => ({
-  id: i + 1,
-  image: `https://via.placeholder.com/300x200?text=Recipe+${i + 1}`,
-  title: `Recipe Title ${i + 1}`,
-  author: `Author ${((i % 5) + 1)}`,
-  rating: Math.round(Math.random() * 5 * 10) / 10,
-}))
-
 export default function BrowseRecipes(): JSX.Element {
+  const [recipes, setRecipes] = useState<Recipe[]>([])
   const [currentPage, setCurrentPage] = useState<number>(1)
-  const recipesPerPage = 12
-  const totalPages = Math.ceil(allRecipes.length / recipesPerPage)
-  const startIndex = (currentPage - 1) * recipesPerPage
-  const currentRecipes = allRecipes.slice(startIndex, startIndex + recipesPerPage)
+  const [totalPages, setTotalPages] = useState<number>(1)
+
+  useEffect(() => {
+    async function fetchRecipes() {
+      // fetch logic here
+      const data = await Promise.resolve({ items: [], totalPages: 1 })
+      setRecipes(data.items)
+      setTotalPages(data.totalPages)
+    }
+    fetchRecipes()
+  }, [currentPage])
 
   const handlePageChange = (page: number) => {
-    if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page)
-      window.scrollTo({ top: 0, behavior: 'smooth' })
-    }
+    setCurrentPage(page)
   }
 
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
-      <div className="flex flex-1 container mx-auto px-4 py-6">
-        <aside className="w-64 mr-6 hidden lg:block">
+      <div className="flex flex-1">
+        <aside className="hidden lg:block w-64 p-4 border-r border-gray-200">
           <FilterSidebar />
         </aside>
-        <main className="flex-1">
-          <h1 className="text-2xl font-semibold mb-4">Browse Recipes</h1>
+        <main className="flex-1 p-4">
+          <h1 className="text-3xl font-semibold mb-6">Browse Recipes</h1>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {currentRecipes.map((recipe) => (
+            {recipes.map((recipe) => (
               <RecipeCard
                 key={recipe.id}
-                image={recipe.image}
+                id={recipe.id}
                 title={recipe.title}
                 author={recipe.author}
                 rating={recipe.rating}
+                image={recipe.image}
               />
             ))}
           </div>
