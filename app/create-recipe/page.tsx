@@ -1,19 +1,19 @@
-import NavBar from "@/components/NavBar";
-import RecipeForm from "@/components/RecipeForm";
-import Footer from "@/components/Footer";
-import { FC } from "react";
+import React from "react"
+import NavBar from "@/components/NavBar"
+import RecipeForm from "@/components/RecipeForm"
+import Footer from "@/components/Footer"
 
-const CreateRecipe: FC = (): JSX.Element => {
+export default function CreateRecipe(): JSX.Element {
   return (
     <div className="flex flex-col min-h-screen">
       <NavBar />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <h1 className="text-3xl font-bold mb-6">Create Recipe</h1>
-        <RecipeForm />
+      <main className="flex-grow bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <h1 className="text-3xl font-semibold text-gray-900 mb-6">Create Recipe</h1>
+        <div className="max-w-3xl mx-auto">
+          <RecipeForm />
+        </div>
       </main>
       <Footer />
     </div>
-  );
-};
-
-export default CreateRecipe;
+  )
+}
